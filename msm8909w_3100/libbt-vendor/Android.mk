@@ -57,8 +57,7 @@ endif #WIFI_BT_STATUS_SYNC
 
 LOCAL_SHARED_LIBRARIES := \
         libcutils \
-        liblog \
-        libbtnv
+        liblog
 
 LOCAL_CFLAGS += -Wno-error
 LOCAL_MODULE := libbt-vendor
@@ -73,7 +72,18 @@ else
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
 endif
 
+ifneq ($(QCPATH),)
 LOCAL_CFLAGS += -DBT_NV_SUPPORT
+LOCAL_SHARED_LIBRARIES += libbtnv
+endif
+
+LOCAL_CFLAGS += -Wno-unused-variable
+LOCAL_CFLAGS += -Wno-unused-label
+LOCAL_CFLAGS += -Wno-user-defined-warnings
+LOCAL_CFLAGS += -Wno-unused-parameter
+LOCAL_CFLAGS += -Wno-incompatible-pointer-types-discards-qualifiers
+LOCAL_CFLAGS += -Wno-unused-function
+LOCAL_CFLAGS += -Wno-enum-conversion
 
 ifneq ($(BOARD_ANT_WIRELESS_DEVICE),)
 LOCAL_CFLAGS += -DENABLE_ANT
